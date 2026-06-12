@@ -2,7 +2,7 @@ import * as todoService from "../services/todoServices.js"
 
 const getTodo = async (req, res) => {
     try {
-        const { todoId } = await req.params
+        const { todoId } =  req.params
         const user = await todoService.getTodo(todoId)
         res.status(200).json({
             success: true,
