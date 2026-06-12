@@ -62,7 +62,6 @@ MERN-Todo/
 
 ```bash
 git clone https://github.com/himasree-d/To-do_Training/
-cd MERN-Todo
 ```
 
 ### Backend Setup
