@@ -1,38 +1,48 @@
-import Todo from "../models/todoModel.js"
-import bcrypt from "bcrypt"
-import dotenv from "dotenv"
-import jwt from "jsonwebtoken"
-dotenv.config()
-const SECRET = process.env.SECRET
-const getTodo = async (todoId) => {
-    return await Todo.find({ _id: todoId })
-}
+import User from "../models/userModel.js";
+import Todo from "../models/todoModel.js";
+import bcrypt from "bcrypt";
+import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
 
-const deleteTodo = async (todoId) => {
-    return await Todo.findByIdAndDelete(todoId)
-}
+dotenv.config();
+const SECRET = process.env.SECRET;
+
+const getUser = async (userId) => {
+    return await User.findById(userId);
+};
 
 const authTodo = async (todoData) => {
-    const found = await Todo.find({ email: todoData.email }) 
-    if (found) {
-        const chkPassword = await bcrypt.compare(todoData.password, found.password)  
-        if (chkPassword) {
-            const todo = {
-                id: found._id,
-                name: found.name,
-                email: found.email,
-                text: found.text
-            }
-            const token = await jwt.sign(todo, SECRET, { expiresIn: "1h" }) 
-            return { ...todo, token }
-        }
+    const found = await User.findOne({ email: todoData.email });
+    if (!found) throw new Error("User not found");
+    
+    const chkPassword = await bcrypt.compare(todoData.password, found.password);
+    if (!chkPassword) throw new Error("Invalid password");
+    
+    const user = {
+        id: found._id,
+        name: found.name,
+        email: found.email,
+    };
+    const token = jwt.sign(user, SECRET, { expiresIn: "1h" });
+    return { ...user, token };
+};
 
-    }
+const createUser = async (todoData) => {
+    const hashedPassword = await bcrypt.hash(todoData.password, 10);
+    todoData.password = hashedPassword;
+    return await User.create(todoData);
 };
-const createTodo = async (TodoData) => {
-    console.log(TodoData)
-    const hashedPassword = await bcrypt.hash(TodoData.password, 10)
-    TodoData.password = hashedPassword
-    return await Todo.create(TodoData);
+
+const getTodos = async (userId) => {
+    return await Todo.find({ userId });
 };
-export { getTodo, createTodo, authTodo, deleteTodo };
+
+const addTodo = async (userId, text) => {
+    return await Todo.create({ userId, text });
+};
+
+const deleteTodo = async (todoId) => {
+    return await Todo.findByIdAndDelete(todoId);
+};
+
+export { getUser, authTodo, createUser, getTodos, addTodo, deleteTodo };
