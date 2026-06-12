@@ -2,7 +2,7 @@ import * as todoService from "../services/todoServices.js"
 
 const getTodo = async (req, res) => {
     try {
-        const { todoId } =  req.params
+        const { todoId } =  await req.params
         const user = await todoService.getTodo(todoId)
         res.status(200).json({
             success: true,
@@ -35,8 +35,8 @@ const authTodo = async (req, res) => {
 
 const deleteTodo = async (req, res) => {
     try {
-        const { todoId } = await req.params
-        const text = await todoService.deleteTodo(todoId)
+        const { id } = req.params
+        const text = await todoService.deleteTodo(id)
         res.status(200).json({
             success: true,
             text: text
