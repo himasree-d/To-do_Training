@@ -13,17 +13,17 @@ const deleteTodo = async (todoId) => {
 }
 
 const authTodo = async (todoData) => {
-    const found = await Todo.find({ email: TodoData.email })
+    const found = await Todo.find({ email: todoData.email }) 
     if (found) {
-        const chkPassword = await bcrypt.compare(TodoData.password, found.password)
+        const chkPassword = await bcrypt.compare(todoData.password, found.password)  
         if (chkPassword) {
-            const todo= {
+            const todo = {
                 id: found._id,
                 name: found.name,
                 email: found.email,
                 text: found.text
             }
-            const token = await jwt.sign(Todo, SECRET, { expiresIn: "1hr" })
+            const token = await jwt.sign(todo, SECRET, { expiresIn: "1h" }) 
             return { ...todo, token }
         }
 
