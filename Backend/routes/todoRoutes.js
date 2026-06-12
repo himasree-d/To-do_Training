@@ -1,4 +1,7 @@
+import express from "express";
 import * as todoController from "../controller/todoController.js";
+
+const router = express.Router();
 
 router.get("/getUser/:id", todoController.getUser);
 router.post("/login", todoController.authTodo);
