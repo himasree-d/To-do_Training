@@ -7,7 +7,7 @@ export default function App() {
   const [text, setText] = useState("");
 
   const fetchTodos = async () => {
-    const res = await axios.get("http://localhost:5010/todo");
+    const res = await axios.get("https://to-do-training.onrender.com/todo");
     setTodos(res.data);
   };
 
@@ -17,13 +17,13 @@ export default function App() {
 
   const addTodo = async () => {
     if (text.trim() === "") return;
-    await axios.post("http://localhost:5010/todo", { text });
+    await axios.post("https://to-do-training.onrender.com/todo", { text });
     setText("");
     fetchTodos();
   };
 
   const deleteTodo = async (id) => {
-    await axios.delete(`http://localhost:5010/todo/${id}`);
+    await axios.delete(`https://to-do-training.onrender.com/todo/${id}`);
     fetchTodos();
   };
 
