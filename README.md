@@ -89,7 +89,7 @@ node server.js
 Open another terminal:
 
 ```bash
-cd Frontend
+cd Frontend/Notes
 npm install
 ```
 
