@@ -61,7 +61,7 @@ MERN-Todo/
 ### Clone Repository
 
 ```bash
-git clone [repo](https://github.com/himasree-d/To-do_Training/)
+git clone https://github.com/himasree-d/To-do_Training/
 cd MERN-Todo
 ```
 
