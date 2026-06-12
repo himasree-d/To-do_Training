@@ -117,4 +117,5 @@ npm run dev
 ## Author
 
 [Himasree Dintakurthy](https://github.com/himasree-d)
+
 [Ishani Singh](https://github.com/I-S2506)
