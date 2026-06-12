@@ -2,6 +2,10 @@
 
 A simple Todo application built using the MERN stack.
 
+## Live Demo
+
+[Click here to view the deployed app](https://to-dotrainingfrontend.vercel.app/)
+
 ## Tech Stack
 
 - MongoDB
@@ -20,15 +24,34 @@ A simple Todo application built using the MERN stack.
 ```
 MERN-Todo/
 │
-├── backend/
-│   ├── models/
-│   ├── routes/
-│   ├── controllers/
-│   └── server.js
+├── Backend/
+│   ├── server.js
+│   ├── package.json
+│   ├── package-lock.json
+│   └── .gitignore
 │
-├── frontend/
-│   ├── src/
-│   └── package.json
+├── Frontend/
+│   └── Notes/
+│       ├── public/
+│       │   ├── favicon.svg
+│       │   └── icons.svg
+│       │
+│       ├── src/
+│       │   ├── assets/
+│       │   │   ├── hero.png
+│       │   │   ├── react.svg
+│       │   │   └── vite.svg
+│       │   │
+│       │   ├── App.jsx
+│       │   ├── App.css
+│       │   ├── index.css
+│       │   └── main.jsx
+│       │
+│       ├── index.html
+│       ├── package.json
+│       ├── package-lock.json
+│       ├── vite.config.js
+│       └── eslint.config.js
 │
 └── README.md
 ```
@@ -45,7 +68,7 @@ cd MERN-Todo
 ### Backend Setup
 
 ```bash
-cd backend
+cd Backend
 npm install
 ```
 
@@ -66,7 +89,7 @@ node server.js
 Open another terminal:
 
 ```bash
-cd frontend
+cd Frontend
 npm install
 ```
 
@@ -93,4 +116,5 @@ npm run dev
 
 ## Author
 
-[Himasree Dintakurthy] ([https:/](https://github.com/himasree-d)
+[Himasree Dintakurthy](https://github.com/himasree-d)
+[Ishani Singh](https://github.com/I-S2506)
