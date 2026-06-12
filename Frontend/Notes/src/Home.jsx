@@ -7,41 +7,33 @@ const API = "https://to-do-training.onrender.com/api/todo";
 
 export default function Home() {
   const { user, setUser } = useContext(AppContext);
+  const [todos, setTodos] = useState([]);
   const [text, setText] = useState("");
-  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!user || !user.id) {
       navigate("/");
+      return;
     }
+    fetchTodos();
   }, []);
+
+  const fetchTodos = async () => {
+    const res = await axios.get(`${API}/todos/${user.id}`);
+    setTodos(res.data.todos);
+  };
 
   const addTodo = async () => {
     if (text.trim() === "") return;
-    try {
-      const res = await axios.post(`${API}/register`, {
-        name: user.name,
-        email: user.email + "_todo_" + Date.now(),
-        password: "placeholder",
-        text: text,
-      });
-      if (res.data.success) {
-        setMessage("Task added!");
-        setText("");
-      }
-    } catch (error) {
-      setMessage("Failed to add task.");
-    }
+    await axios.post(`${API}/todos/${user.id}`, { text });
+    setText("");
+    fetchTodos();
   };
 
   const deleteTodo = async (id) => {
-    try {
-      await axios.post(`${API}/todo/${id}`);
-      setMessage("Task deleted!");
-    } catch (error) {
-      setMessage("Failed to delete.");
-    }
+    await axios.delete(`${API}/todo/${id}`);
+    fetchTodos();
   };
 
   const handleLogout = () => {
@@ -55,7 +47,6 @@ export default function Home() {
         <h2>Hello, {user.name}</h2>
         <button className="btn" onClick={handleLogout}>Logout</button>
       </div>
-      {message && <p>{message}</p>}
       <div className="input-row">
         <input
           type="text"
@@ -66,6 +57,14 @@ export default function Home() {
         />
         <button className="btn" onClick={addTodo}>Add</button>
       </div>
+      <ol>
+        {todos && todos.map((todo) => (
+          <li key={todo._id}>
+            {todo.text}
+            <button className="btn delete-btn" onClick={() => deleteTodo(todo._id)}>Delete</button>
+          </li>
+        ))}
+      </ol>
     </div>
   );
 }
