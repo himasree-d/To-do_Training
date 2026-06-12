@@ -7,4 +7,4 @@ router.get("/todos/:id", todoController.getTodos);
 router.post("/todos/:id", todoController.addTodo);
 router.delete("/todo/:id", todoController.deleteTodo);
 
-export { getUser, authTodo, createTodo, getTodos, addTodo, deleteTodo };
+export default router;
